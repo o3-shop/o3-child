@@ -23,7 +23,7 @@
  */
 
 $oParentTheme = oxNew(\OxidEsales\Eshop\Core\Theme::class);
-$oParentTheme->load('o3-child');
+$oParentTheme->load('o3-theme');
 $aTheme = [
     'id' => $oParentTheme->getInfo('id') . '_child',
     'title' => $oParentTheme->getInfo('title') . '<i>&nbsp;(ChildTheme)</i>',
