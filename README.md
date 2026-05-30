@@ -49,6 +49,108 @@ Then clear the cache and off you go!
 cp -r <DOCUMENT_ROOT>/vendor/o3-shop/o3-theme/build <DOCUMENT_ROOT>/source/Application/views/o3-child
 cp -r <DOCUMENT_ROOT>/vendor/o3-shop/o3-theme/package.json <DOCUMENT_ROOT>/source/Application/views/o3-child
 ```
+Available gulp tasks (run from the theme root):
+
+| Command | What it does | When |
+|---|---|---|
+| `gulp` | Production build: minified JS/CSS, PurgeCSS pruning, asset optimization | before shipping |
+| `gulp dev` | Watcher: rebuilds JS on `build/js/**` change, rebuilds CSS on `build/scss/**` change, clears the shop's Smarty `tmp/` on `**/*.tpl` and translation-file changes | day-to-day |
+
+While running `gulp dev`, keep the shop in dev mode (theme settings
+→ disable production mode) so the browser serves the un-minified
+assets and source maps.
+
+There's a small in-frontend **mode-tool** widget that surfaces which
+mode the shop is currently in; enable it from the theme settings to
+avoid the "why isn't my change showing up?" tax.
+
+---
+
+### PurgeCSS safelist
+
+Production builds run PurgeCSS over the compiled CSS and drop any
+class that isn't seen in the templates / JS. Classes constructed
+dynamically slip through:
+
+```smarty
+{* dynamic class — PurgeCSS doesn't see "grid-view" or "line-view" anywhere literal *}
+<div class="[{$type}]-view"></div>
+```
+
+Add those to the safelist in `gulpfile.js` (the PurgeCSS config
+block, around line 81):
+
+```javascript
+safelist: [
+    'grid-view',
+    'line-view',
+    /^custom-/,   // patterns work too
+]
+```
+
+---
+
+### Where to put new SCSS / JS
+
+#### JavaScript
+
+- **Main bundle** — `build/js/main.bundle.js`. `import` new modules
+  here to ship them in the main page bundle.
+- **Standalone widgets** — `build/js/widgets/`. Loaded explicitly
+  from templates:
+
+  ```smarty
+  [{oxscript include="js/widgets/checkagb.js" priority=10}]
+  ```
+
+JavaScript shipped by modules can also be folded into
+`main.bundle.js`; the file's header comments give worked examples.
+
+#### SCSS
+
+- **Main bundle** — `build/scss/main.bundle.scss`. `@import` your
+  partials here to include them globally.
+
+Same pattern for module SCSS: examples in the bundle file's comments.
+
+---
+
+### jQuery
+
+The theme targets Bootstrap 5, which uses vanilla JS rather than
+jQuery, so the global jQuery is not loaded by default.
+
+If a third-party module genuinely needs jQuery, enable it from the
+theme settings (same version the legacy wave theme used). Build-time
+deprecation warnings around jQuery are harmless and will disappear
+once Bootstrap moves past its current compat shims.
+
+---
+
+### PayPal compatibility
+
+The PayPal module's template checks the active theme literal:
+
+```smarty
+[{if $oViewConf->getActiveTheme()=='flow'}]
+```
+
+If you're integrating PayPal with o3-theme, change `'flow'` to
+`'o3-theme'` in that template. (Tracked separately as something the
+module should handle itself.)
+
+---
+
+### Issues
+
+Report bugs and feature requests on the umbrella project tracker:
+
+<https://github.com/o3-shop/o3-shop/issues>
+
+Tag with the project name **O3 Theme** so triage finds them.
+Issues that are clearly theme-internal (build, SCSS, JS bundling)
+can also go straight on this repo's tracker:
+<https://github.com/o3-shop/o3-Theme/issues>.
 
 
 
