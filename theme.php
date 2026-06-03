@@ -22,15 +22,13 @@
  * Theme Information
  */
 
-$oParentTheme = oxNew(\OxidEsales\Eshop\Core\Theme::class);
-$oParentTheme->load('o3-theme');
 $aTheme = [
-    'id' => $oParentTheme->getInfo('id') . '_child',
-    'title' => $oParentTheme->getInfo('title') . '<i>&nbsp;(ChildTheme)</i>',
-    'description' => $oParentTheme->getInfo('description'),
+    'id'             => 'o3-theme_child',
+    'title'          => 'O3-Theme <i>&nbsp;(ChildTheme)</i>',
+    'description'    => 'O3-Theme is O3-Shops official responsive theme based on the CSS framework Bootstrap 5.',
     'thumbnail'      => 'theme.png',
     'version'        => '1.0.0',
     'author'         => '<a href="https://www.o3-shop.com" title="O3-Shop">O3-Shop</a>',
-    'parentTheme' => $oParentTheme->getInfo('id'),
-    'parentVersions' => array($oParentTheme->getInfo('version')),
+    'parentTheme'    => 'o3-theme',
+    'parentVersions' => ['1.3.4'],
 ];
