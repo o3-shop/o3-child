@@ -1,0 +1,28 @@
+{
+    "name": "o3-shop/o3-child",
+    "description": "This is a child theme",
+    "type": "o3shop-theme",
+    "keywords": [
+        "o3-shop",
+        "themes",
+        "eShop"
+    ],
+    "homepage": "https://www.o3-shop.com/",
+    "license": [
+        "GPL-3.0-only"
+    ],
+    "author": [
+        {
+            "name": "O3-Shop",
+            "email": "info@o3-shop.com",
+            "homepage": "https://www.o3-shop.com",
+            "role": "Developer"
+        }
+    ],
+    "extra": {
+        "oxideshop": {
+            "target-directory": "o3-child",
+            "assets-directory": "out/o3-child"
+        }
+    }
+}
