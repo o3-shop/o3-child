@@ -30,5 +30,5 @@ $aTheme = [
     'version'        => '1.0.0',
     'author'         => '<a href="https://www.o3-shop.com" title="O3-Shop">O3-Shop</a>',
     'parentTheme'    => 'o3-theme',
-    'parentVersions' => ['1.3.4'],
+    'parentVersions' => ['1.4.2'],
 ];

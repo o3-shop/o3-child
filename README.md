@@ -33,6 +33,8 @@ Run the following command there: `composer require o3-shop/o3-child`
 In the admin area under *Extensions → Themes → o3-child_ChildTheme* click the *Activate* button.
 Then clear the cache and off you go!
 
+The "parent theme" may need to be updated to the current version!
+
 ### Development
 
 **Use this method if:** You want to customize the theme or develop new features.
